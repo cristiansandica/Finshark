@@ -1,11 +1,10 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react'
 import { CompanySearch } from '../../../company';
-import Navbar from '../../Navbar/Navbar';
-import Hero from '../../Hero/Hero';
 import Search from '../../Search/Search';
 import ListPortfolio from '../../Portfolio/ListPortfolio/ListPortfolio';
 import CardList from '../../CardList/CardList';
 import { searchCompanies } from '../../../api';
+import { PortfolioGet } from '../../../Models/Portfolio';
 
 type Props = {}
 
@@ -13,7 +12,7 @@ const SearchPage = (props: Props) => {
     const [search, setSearch] = useState<string>('');
     const [searchResult, setSearchResult] = useState<CompanySearch[]>([]);
     const [serverError, setServerError] = useState<string | null>(null);
-    const [portfolioValues, setPortfolioValues] = useState<string[]>([]);
+    const [portfolioValues, setPortfolioValues] = useState<PortfolioGet[]>([]);
 
     const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
         setSearch(e.target.value)
@@ -47,7 +46,6 @@ const SearchPage = (props: Props) => {
 
     return (
         <>
-            <Hero />
             <Search onSearchSubmit={onSearchSubmit} search={search} handleSearchChange={handleSearchChange} />
             <ListPortfolio portfolioValues={portfolioValues} onPortfolioDelete={onPortDelete} />
             <CardList searchResult={searchResult} onPortfolioCreate={onPortfolioCreate} />
