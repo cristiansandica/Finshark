@@ -34,30 +34,27 @@ const tableConfig = [
 ];
 
 
-function CompanyProfile({ }: Props) {
+const CompanyProfile = (props: Props) => {
     const ticker = useOutletContext<string>();
     const [companyData, setCompanyData] = useState<CompanyKeyMetrics>();
     useEffect(() => {
-        const getCompanyKeyRatios = async () => {
-            const value = await getKeyMetrics(ticker);
-            console.log(value, 'value')
-            setCompanyData(value?.data[1]);
-        };
-        getCompanyKeyRatios();
+      const getCompanyKeyRatios = async () => {
+        const value = await getKeyMetrics(ticker);
+        setCompanyData(value?.data[0]);
+      };
+      getCompanyKeyRatios();
     }, []);
     return (
-        <div>
-            {companyData ? (
-                <>
-                    <RatioList data={companyData} config={tableConfig} />
-                </>
-            ) :
-                <>
-                    Loading...
-                </>
-            }
-        </div>
-    )
-}
+      <>
+        {companyData ? (
+          <>
+            <RatioList config={tableConfig} data={companyData} />
+          </>
+        ) : (
+          <h1>testError</h1>
+        )}
+      </>
+    );
+  };
 
 export default CompanyProfile

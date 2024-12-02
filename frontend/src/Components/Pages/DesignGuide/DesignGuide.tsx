@@ -1,27 +1,34 @@
-import RatioList from '../../RatioList/RatioList'
-import Table from '../../Table/Table'
-import { testIncomeStatementData } from '../../Table/testData'
+import { TestDataCompany } from "../../Table/testData";
+import RatioList from "../../RatioList/RatioList";
+import Table from "../../Table/Table";
 
-type Props = {}
+
+type Props = {};
+
+const data = TestDataCompany;
 
 const tableConfig = [
     {
-      label: "Market Cap",
-      render: (company: any) => company.marketCapTTM,
-      subTitle: "Total value of all a company's share of stock"
-    }
-]
+        label: "symbol",
+        render: (company: any) => company.symbol,
+    },
+];
 
 const DesignGuide = (props: Props) => {
     return (
         <>
-            <h1>FinShark Design Page</h1>
-            <RatioList data={testIncomeStatementData} config={tableConfig} />
-            <Table />
-            <h2>This is FinShark's design page. This is where we will house various design aspects of the app </h2>
-             <Table />
+            <h1>
+                Design guide- This is the design guide for Fin Shark. These are reuable
+                components of the app with brief instructions on how to use them.
+            </h1>
+            <RatioList config={tableConfig} data={data} />
+            <Table config={tableConfig} data={data} />
+            <h3>
+                Table - Table takes in a configuration object and company data as
+                params. Use the config to style your table.
+            </h3>
         </>
-    )
-}
+    );
+};
 
-export default DesignGuide
+export default DesignGuide;

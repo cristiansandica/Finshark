@@ -21,7 +21,7 @@ const SearchPage = (props: Props) => {
     const onPortfolioCreate = (e: any) => {
         e.preventDefault();
         const exists = portfolioValues.find((value) => value === e.target[0].value)
-        console.log(exists, 'exists')
+        console.log(portfolioValues, 'exists')
         if (exists) return;
         const updatedPortfolio = [...portfolioValues, e.target[0].value];
         console.log(updatedPortfolio, 'updated')

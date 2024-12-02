@@ -1,5 +1,5 @@
 import React from 'react'
-import { Outlet } from 'react-router'
+import { Outlet } from 'react-router-dom'
 interface Props {
     children: React.ReactNode;
     ticker: string;
@@ -12,7 +12,7 @@ const CompanyDashboard = ({ children, ticker }: Props) => {
           <div className="px-4 md:px-6 mx-auto w-full">
             <div>
               <div className="flex flex-wrap">{children}</div>
-              <div className="flex flex-wrap">{<Outlet />}</div>
+              <div className="flex flex-wrap">{<Outlet context={ticker} />}</div>
             </div>
           </div>
         </div>
@@ -21,3 +21,4 @@ const CompanyDashboard = ({ children, ticker }: Props) => {
 }
 
 export default CompanyDashboard
+
