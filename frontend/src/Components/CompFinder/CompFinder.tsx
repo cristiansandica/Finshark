@@ -20,13 +20,13 @@ const CompFinder = ({ ticker }: Props) => {
     }, [ticker]);
     return (
       <div className="inline-flex rounded-md shadow-sm m-4" role="group">
-        {companyData ? (
+        {/* {companyData ? (
           companyData?.peersList.map((ticker) => {
             return <CompFinderItem ticker={ticker} />;
           })
         ) : (
           <Spinner />
-        )}
+        )} */}
       </div>
     );
   };
