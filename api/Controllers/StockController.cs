@@ -67,5 +67,63 @@ namespace api.Controllers
 
             return Ok(stockModel.ToStockDto());
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            var stockModel = _context.Stocks.FirstOrDefault(x => x.Id == id);
+
+            if (stockModel == null)
+            {
+                return NotFound();
+            }
+            _context.Stocks.Remove(stockModel);
+            _context.SaveChanges();
+
+            return NoContent();
+        }
+
+        [HttpPatch]
+        [Route("{id}")]
+        public IActionResult Update([FromRoute] int id, [FromBody] PatchStockRequestDto updateDto)
+        {
+            var stockModel = _context.Stocks.FirstOrDefault(x => x.Id == id);
+
+            if (stockModel == null)
+            {
+                return NotFound();
+            }
+
+            foreach (var property in updateDto.GetType().GetProperties())
+            {
+                var value = property.GetValue(updateDto);
+                switch (property.Name)
+                {
+                    case nameof(PatchStockRequestDto.Symbol) when value != null:
+                        stockModel.Symbol = (string)value;
+                        break;
+                    case nameof(PatchStockRequestDto.CompanyName) when value != null:
+                        stockModel.CompanyName = (string)value;
+                        break;
+                    case nameof(PatchStockRequestDto.Purchase) when value != null:
+                        stockModel.Purchase = (decimal)value;
+                        break;
+                    case nameof(PatchStockRequestDto.LastDiv) when value != null:
+                        stockModel.LastDiv = (decimal)value;
+                        break;
+                    case nameof(PatchStockRequestDto.Industry) when value != null:
+                        stockModel.Industry = (string)value;
+                        break;
+                    case nameof(PatchStockRequestDto.MarketCap) when value != null:
+                        stockModel.MarketCap = (long)value;
+                        break;
+                }
+            }
+
+            _context.SaveChanges();
+
+            return Ok(stockModel.ToStockDto());
+        }
     }
 }
