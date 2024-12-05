@@ -1,5 +1,7 @@
 using api.Data;
+using api.Interfaces;
 using api.Models;
+using api.Repository;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -18,6 +20,8 @@ builder.Services.AddDbContext<ApplicationDBContext>(options =>
     var connetionString = builder.Configuration.GetConnectionString("DefaultConnection");
     options.UseMySql(connetionString, ServerVersion.AutoDetect(connetionString));
 });
+
+builder.Services.AddScoped<IStockRepository, StockRepository>();
 
 var app = builder.Build();
 
