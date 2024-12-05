@@ -141,3 +141,7 @@
 /Users/cristian.sandica/finshark/api/obj/Debug/net8.0/api.pdb
 /Users/cristian.sandica/finshark/api/obj/Debug/net8.0/api.genruntimeconfig.cache
 /Users/cristian.sandica/finshark/api/obj/Debug/net8.0/ref/api.dll
+/Users/cristian.sandica/finshark/api/bin/Debug/net8.0/Microsoft.AspNetCore.JsonPatch.dll
+/Users/cristian.sandica/finshark/api/bin/Debug/net8.0/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/cristian.sandica/finshark/api/bin/Debug/net8.0/Newtonsoft.Json.dll
+/Users/cristian.sandica/finshark/api/bin/Debug/net8.0/Newtonsoft.Json.Bson.dll

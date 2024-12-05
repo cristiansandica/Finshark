@@ -4,7 +4,6 @@ using api.Dtos.UpdateStockRequestDto;
 using api.Interfaces;
 using api.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace api.Controllers
 {
