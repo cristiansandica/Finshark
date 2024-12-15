@@ -1,4 +1,4 @@
-import Hero from '../../Hero/Hero'
+import Hero from "../../Components/Hero/Hero"
 
 type Props = {}
 

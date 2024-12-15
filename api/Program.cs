@@ -16,10 +16,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<ITokenService, TokenService>();
 
 //prevent object cycles 
-builder.Services.AddControllers().AddNewtonsoftJson(options => 
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
 });
@@ -57,7 +56,8 @@ builder.Services.AddSwaggerGen(option =>
     });
 });
 
-builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
+builder.Services.AddIdentity<AppUser, IdentityRole>(options =>
+{
     options.Password.RequireDigit = true;
     options.Password.RequireLowercase = true;
     options.Password.RequireUppercase = true;
@@ -66,32 +66,39 @@ builder.Services.AddIdentity<AppUser, IdentityRole>(options => {
 })
 .AddEntityFrameworkStores<ApplicationDBContext>();
 
-builder.Services.AddAuthentication(option => {
-option.DefaultAuthenticateScheme = 
-option.DefaultChallengeScheme =
-option.DefaultForbidScheme = 
-option.DefaultScheme = 
-option.DefaultSignInScheme = 
-option.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
+builder.Services.AddAuthentication(option =>
+{
+    option.DefaultAuthenticateScheme =
+    option.DefaultChallengeScheme =
+    option.DefaultForbidScheme =
+    option.DefaultScheme =
+    option.DefaultSignInScheme =
+    option.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
 })
 .AddJwtBearer(options =>
- {
-    options.TokenValidationParameters = new TokenValidationParameters
 {
-    ValidateIssuer = true,
-    ValidIssuer = builder.Configuration["JWT:Issuer"],
-    ValidateAudience = true,
-    ValidAudience = builder.Configuration["JWT:Audience"],
-    ValidateIssuerSigningKey = true,
-    IssuerSigningKey = new SymmetricSecurityKey(
-        System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
-    )
-};
- });
+    options.RequireHttpsMetadata = false; 
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        ValidateIssuer = true,
+        ValidIssuer = builder.Configuration["JWT:Issuer"],
+        ValidateAudience = true,
+        ValidAudience = builder.Configuration["JWT:Audience"],
+        ValidateIssuerSigningKey = true,
+        IssuerSigningKey = new SymmetricSecurityKey(
+            System.Text.Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
+        ),
+        ValidateLifetime = true, 
+        ClockSkew = TimeSpan.Zero 
+    };
+});
 
 builder.Services.AddScoped<IStockRepository, StockRepository>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
-
+builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<IPortfolioRepository, PortfolioRepository>();
+builder.Services.AddScoped<IFMPService, FMPService>();
+builder.Services.AddHttpClient<IFMPService, FMPService>();
 
 var app = builder.Build();
 
@@ -104,6 +111,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseCors(x => x
+.AllowAnyHeader()
+.AllowAnyMethod()
+.AllowCredentials()
+.SetIsOriginAllowed(origin => true)
+);
 app.UseAuthentication();
 app.UseAuthorization();
 

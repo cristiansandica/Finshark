@@ -1,10 +1,11 @@
 import { ChangeEvent, SyntheticEvent, useState } from 'react'
-import { CompanySearch } from '../../../company';
-import Search from '../../Search/Search';
-import ListPortfolio from '../../Portfolio/ListPortfolio/ListPortfolio';
-import CardList from '../../CardList/CardList';
-import { searchCompanies } from '../../../api';
-import { PortfolioGet } from '../../../Models/Portfolio';
+import { searchCompanies } from '../../api';
+import { CompanySearch } from '../../company';
+import CardList from '../../Components/CardList/CardList';
+import ListPortfolio from '../../Components/Portfolio/ListPortfolio/ListPortfolio';
+import Search from '../../Components/Search/Search';
+import { PortfolioGet } from '../../Models/Portfolio';
+
 
 interface Props {}
 

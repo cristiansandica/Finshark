@@ -1,6 +1,7 @@
-import { TestDataCompany } from "../../Table/testData";
-import RatioList from "../../RatioList/RatioList";
-import Table from "../../Table/Table";
+import RatioList from "../../Components/RatioList/RatioList";
+import Table from "../../Components/Table/Table";
+import { TestDataCompany } from "../../Components/Table/testData";
+
 
 
 type Props = {};
